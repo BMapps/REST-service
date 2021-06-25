@@ -8,6 +8,7 @@ const tasksRouter = require('./resources/tasks/task.router');
 const logger = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 const loginRouter = require('./middleware/loginRouter');
+const authentication = require('./middleware/authentication');
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
@@ -25,6 +26,8 @@ app.use('/', (req, res, next) => {
 });
 
 app.use('*', logger);
+
+app.use('*', authentication);
 
 app.use('/users', userRouter);
 
